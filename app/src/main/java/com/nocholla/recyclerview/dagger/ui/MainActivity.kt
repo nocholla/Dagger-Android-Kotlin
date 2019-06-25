@@ -1,7 +1,8 @@
-package com.nocholla.recyclerview.dagger
+package com.nocholla.recyclerview.dagger.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.nocholla.recyclerview.dagger.R
 
 class MainActivity : AppCompatActivity() {
 
