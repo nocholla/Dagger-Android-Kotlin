@@ -11,13 +11,14 @@ import com.nocholla.recyclerview.dagger.model.StarWars
 import java.util.ArrayList
 import javax.inject.Inject
 
+
 class RecyclerViewAdapter @Inject
 constructor(clickListener: ClickListener) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     private val data: MutableList<StarWars.People>
     private val clickListener: ClickListener = clickListener
 
     init {
-        data = ArrayList<StarWars.People>()
+        data = ArrayList()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,20 +39,23 @@ constructor(clickListener: ClickListener) : RecyclerView.Adapter<RecyclerViewAda
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val txtName: TextView = itemView.findViewById(R.id.txtName)
-        val txtBirthYear: TextView = itemView.findViewById(R.id.txtBirthYear)
-        val txtGender: TextView = itemView.findViewById(R.id.txtGender)
-        val txtHeight: TextView = itemView.findViewById(R.id.txtHeight)
-        val txtMass: TextView = itemView.findViewById(R.id.txtMass)
-        private val constraintLayoutContainer: ConstraintLayout = itemView.findViewById(R.id.constraintLayout)
+        val txtName: TextView
+        val txtBirthYear: TextView
+        val txtGender: TextView
+        val txtHeight: TextView
+        val txtMass: TextView
+        val constraintLayoutContainer: ConstraintLayout
 
         init {
 
-            constraintLayoutContainer.setOnClickListener {
-                clickListener.launchIntent(
-                    data[adapterPosition].films!![0]
-                )
-            }
+            txtName = itemView.findViewById(R.id.txtName)
+            txtBirthYear = itemView.findViewById(R.id.txtBirthYear)
+            txtGender = itemView.findViewById(R.id.txtGender)
+            txtHeight = itemView.findViewById(R.id.txtHeight)
+            txtMass = itemView.findViewById(R.id.txtMass)
+            constraintLayoutContainer = itemView.findViewById(R.id.constraintLayout)
+
+            constraintLayoutContainer.setOnClickListener { clickListener.launchIntent(data[adapterPosition].films!!.get(0)) }
         }
     }
 

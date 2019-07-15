@@ -10,11 +10,7 @@ import dagger.Provides
 @Module
 class MainActivityContextModule(private val mainActivity: MainActivity) {
 
-    var context: Context
-
-    init {
-        context = mainActivity
-    }
+    var context: Context = mainActivity
 
     @Provides
     @ActivityScope

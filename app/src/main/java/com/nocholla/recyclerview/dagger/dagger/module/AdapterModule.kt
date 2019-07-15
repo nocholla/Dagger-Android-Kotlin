@@ -11,7 +11,7 @@ class AdapterModule {
 
     @Provides
     @ActivityScope
-    fun getStarWarsPeopleLIst(clickListener: RecyclerViewAdapter.ClickListener): RecyclerViewAdapter {
+    fun getStarWarsPeopleList(clickListener: RecyclerViewAdapter.ClickListener): RecyclerViewAdapter {
         return RecyclerViewAdapter(clickListener)
     }
 

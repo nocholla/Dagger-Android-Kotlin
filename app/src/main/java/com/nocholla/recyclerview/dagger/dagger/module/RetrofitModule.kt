@@ -1,6 +1,5 @@
 package com.nocholla.recyclerview.dagger.dagger.module
 
-
 import com.nocholla.recyclerview.dagger.dagger.scopes.ApplicationScope
 import com.nocholla.recyclerview.dagger.retrofit.APIInterface
 import com.nocholla.recyclerview.dagger.util.Constants.BASE_URL
@@ -14,10 +13,19 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 class RetrofitModule {
 
+    internal val httpLoggingInterceptor: HttpLoggingInterceptor
+        @Provides
+        @ApplicationScope
+        get() {
+            val httpLoggingInterceptor = HttpLoggingInterceptor()
+            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            return httpLoggingInterceptor
+        }
+
     @Provides
     @ApplicationScope
     internal fun getApiInterface(retroFit: Retrofit): APIInterface {
-        return retroFit.create(APIInterface::class.java!!)
+        return retroFit.create(APIInterface::class.java)
     }
 
     @Provides
@@ -32,19 +40,9 @@ class RetrofitModule {
 
     @Provides
     @ApplicationScope
-    internal fun getOkHttpCleint(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    internal fun getOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
             .build()
     }
-
-    internal val httpLoggingInterceptor: HttpLoggingInterceptor
-        @Provides
-        @ApplicationScope
-        get() {
-            val httpLoggingInterceptor = HttpLoggingInterceptor()
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-            return httpLoggingInterceptor
-        }
-
 }
